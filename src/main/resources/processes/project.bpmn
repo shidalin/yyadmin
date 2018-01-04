@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://www.activiti.org/testm1502764807592" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="m1502764807592" name="" targetNamespace="http://www.activiti.org/testm1502764807592" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <process id="projectProcess" isClosed="false" isExecutable="true" name="projectProcess" processType="None">
+    <startEvent id="projectStart" name="projectStart"/>
+    <endEvent id="projectEnd" name="projectEnd"/>
+    <userTask activiti:assignee="shidl" activiti:candidateUsers="" activiti:exclusive="true" id="projectCommit" name="projectCommit"/>
+    <userTask activiti:assignee="admin" activiti:candidateUsers="" activiti:exclusive="true" id="projectApprove" name="projectApprove"/>
+    <sequenceFlow id="_6" name="commit" sourceRef="projectStart" targetRef="projectCommit"/>
+    <sequenceFlow id="_7" name="approve" sourceRef="projectCommit" targetRef="projectApprove"/>
+    <sequenceFlow id="_8" sourceRef="projectApprove" targetRef="projectEnd"/>
+  </process>
+  <bpmndi:BPMNDiagram documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="projectProcess">
+      <bpmndi:BPMNShape bpmnElement="projectStart" id="Shape-projectStart">
+        <dc:Bounds height="32.0" width="32.0" x="540.0" y="5.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="projectEnd" id="Shape-projectEnd">
+        <dc:Bounds height="32.0" width="32.0" x="550.0" y="395.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="projectCommit" id="Shape-projectCommit">
+        <dc:Bounds height="55.0" width="140.0" x="490.0" y="125.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="55.0" width="140.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="projectApprove" id="Shape-projectApprove">
+        <dc:Bounds height="55.0" width="140.0" x="490.0" y="260.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="55.0" width="140.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_6" id="BPMNEdge__6" sourceElement="projectStart" targetElement="projectCommit">
+        <di:waypoint x="556.0" y="37.0"/>
+        <di:waypoint x="556.0" y="125.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7" id="BPMNEdge__7" sourceElement="projectCommit" targetElement="projectApprove">
+        <di:waypoint x="560.0" y="180.0"/>
+        <di:waypoint x="560.0" y="260.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8" id="BPMNEdge__8" sourceElement="projectApprove" targetElement="projectEnd">
+        <di:waypoint x="566.0" y="315.0"/>
+        <di:waypoint x="566.0" y="395.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="0.0" width="0.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

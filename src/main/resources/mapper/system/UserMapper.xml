@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonyou.prm.system.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.yonyou.prm.system.entity.User">
+        <result column="id" property="id"/>
+        <result column="status" property="status"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_creator" property="gmtCreator"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <result column="gmt_modifier" property="gmtModifier"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_code" property="userCode"/>
+        <result column="user_pswd" property="userPswd"/>
+        <result column="user_email" property="userEmail"/>
+        <result column="user_phone" property="userPhone"/>
+        <result column="user_type" property="userType"/>
+        <result column="salt" property="salt"/>
+    </resultMap>
+
+    <!-- 查询所有权限 -->
+    <select id="queryPermsByUserId" resultType="string">
+        SELECT m.menu_permission FROM user_role ur
+        LEFT JOIN role_menu rm ON ur.role_id = rm.role_id
+        LEFT JOIN menu m ON rm.menu_id = m.id
+        WHERE ur.user_id = #{userId}
+        AND m.menu_permission !=''
+    </select>
+
+    <!-- 查询管理员所有权限 -->
+    <select id="queryAllPerms" resultType="string">
+        SELECT m.menu_permission FROM user_role ur
+        LEFT JOIN role_menu rm ON ur.role_id = rm.role_id
+        LEFT JOIN menu m ON rm.menu_id = m.id
+        WHERE m.menu_permission !=''
+    </select>
+
+    <!--根据用户token查询用户-->
+    <select id="queryUserByAccessToken" resultMap="BaseResultMap">
+        SELECT t1.* FROM USER t1
+        LEFT JOIN user_token t2 ON t1.id = t2.user_id
+        WHERE t2.token = #{accessToken}
+    </select>
+
+</mapper>
