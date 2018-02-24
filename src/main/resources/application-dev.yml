@@ -1,15 +1,21 @@
 spring:
   #数据库配置信息
   datasource:
-    url: jdbc:mysql://localhost:3306/iviewadmin?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/yyadmin?useUnicode=true&characterEncoding=utf-8
     username: root
     password: root
+
+  devtools:
+    restart:
+      #配置需要热部署的文件夹
+      additional-paths: src/main/java
+      additional-exclude: static/**,public/**
 
 
   logging:
     config: classpath:logback.xml
     level.*: debug
-    path: D:/DEV/logs
+    path: D://DEV/logs
 
   #缓存配置信息
   redis:
@@ -33,5 +39,5 @@ spring:
       # 连接超时时间（毫秒）
     timeout: 0
 server:
-  port: 8080
+  port: 8089
 

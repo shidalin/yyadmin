@@ -3,7 +3,7 @@
 <mapper namespace="com.yonyou.prm.system.mapper.MenuMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.yonyou.prm.system.entity.Menu">
+    <resultMap id="BaseResultMap" type="com.yonyou.yyadmin.system.entity.Menu">
         <result column="id" property="id"/>
         <result column="status" property="status"/>
         <result column="gmt_create" property="gmtCreate"/>
