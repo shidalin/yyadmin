@@ -1,7 +1,7 @@
 #### YYAdmin后台管理系统-后台
 1. 技术架构  
  springboot  
- mybatisplus
+ mybatisplus  
  activiti  
  OAuth2.0  
  
