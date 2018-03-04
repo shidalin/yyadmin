@@ -1,22 +1,17 @@
-package ${package.Controller};
+package
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import ${package.Entity}.${entity};
-import ${package.Service}.${table.serviceName};
-import com.yonyou.prm.common.annotation.SystemLogAnnotation;
-import com.yonyou.prm.core.AbstractController;
-import com.yonyou.prm.core.Result;
-import com.yonyou.prm.core.ResultGenerator;
+import com.yonyou.yyadmin.common.annotation.SystemLogAnnotation;
+import com.yonyou.yyadmin.base.AbstractController;
+import com.yonyou.yyadmin.base.Result;
+import com.yonyou.yyadmin.base.ResultGenerator;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
+${package.Controller}
+        ;
+    ${package.Entity}.${entity};
+    ${package.Service}.${table.serviceName};
 
 /**
  * <p>

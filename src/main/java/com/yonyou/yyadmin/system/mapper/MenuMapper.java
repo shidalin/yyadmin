@@ -17,5 +17,5 @@ import java.util.List;
 
 @Component
 public interface MenuMapper extends BaseMapper<Menu> {
-    List<Menu> getMenuListByUserId(String userId);
+    List<Menu> getMenuListByUserCode(String userCode);
 }

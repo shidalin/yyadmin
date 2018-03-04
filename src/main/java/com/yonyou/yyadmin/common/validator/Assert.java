@@ -1,6 +1,6 @@
 package com.yonyou.yyadmin.common.validator;
 
-import com.yonyou.yyadmin.core.ServiceException;
+import com.yonyou.yyadmin.base.ServiceException;
 import org.apache.commons.lang.StringUtils;
 
 /**

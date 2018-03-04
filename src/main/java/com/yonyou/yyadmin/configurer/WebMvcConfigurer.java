@@ -6,9 +6,9 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter4;
 import com.google.gson.Gson;
-import com.yonyou.yyadmin.core.Result;
-import com.yonyou.yyadmin.core.ResultCode;
-import com.yonyou.yyadmin.core.ServiceException;
+import com.yonyou.yyadmin.base.Result;
+import com.yonyou.yyadmin.base.ResultCode;
+import com.yonyou.yyadmin.base.ServiceException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -104,6 +104,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         });
     }
 
+
     //解决跨域问题
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -114,6 +115,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
                 .allowedMethods("*")
                 .allowCredentials(Boolean.TRUE);
     }
+
 
     //添加拦截器
     @Override
@@ -142,16 +144,6 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
     }
 
-    private void responseResult(HttpServletResponse response, Result result) {
-        response.setCharacterEncoding("UTF-8");
-        response.setHeader("Content-type", "application/json;charset=UTF-8");
-        response.setStatus(result.getCode());
-        try {
-            response.getWriter().write(new Gson().toJson(result));
-        } catch (IOException ex) {
-            logger.error(ex.getMessage());
-        }
-    }
 
     /**
      * 一个简单的签名认证，规则：请求参数按ASCII码排序后，拼接为a=value&b=value...这样的字符串后进行MD5
@@ -175,7 +167,6 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
             return false;
         }
 
-
         linkString = linkString.substring(0, linkString.length() - 1);
         String key = "Potato";//自己修改
         String sign = DigestUtils.md5Hex(linkString + key);
@@ -184,6 +175,12 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
     }
 
+    /**
+     * 获取IP地址
+     *
+     * @param request
+     * @return
+     */
     private String getIpAddress(HttpServletRequest request) {
         String ip = request.getHeader("x-forwarded-for");
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
@@ -209,5 +206,15 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         return ip;
     }
 
+    private void responseResult(HttpServletResponse response, Result result) {
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Content-type", "application/json;charset=UTF-8");
+        response.setStatus(result.getCode());
+        try {
+            response.getWriter().write(new Gson().toJson(result));
+        } catch (IOException ex) {
+            logger.error(ex.getMessage());
+        }
+    }
 
 }

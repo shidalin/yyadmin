@@ -2,7 +2,7 @@ package com.yonyou.yyadmin.system.entity;
 
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableName;
-import com.yonyou.yyadmin.core.AbstractModel;
+import com.yonyou.yyadmin.base.AbstractModel;
 
 /**
  * <p>

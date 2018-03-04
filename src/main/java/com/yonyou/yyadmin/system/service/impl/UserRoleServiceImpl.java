@@ -1,6 +1,6 @@
 package com.yonyou.yyadmin.system.service.impl;
 
-import com.yonyou.yyadmin.core.AbstractServiceImpl;
+import com.yonyou.yyadmin.base.AbstractServiceImpl;
 import com.yonyou.yyadmin.system.entity.UserRole;
 import com.yonyou.yyadmin.system.mapper.UserRoleMapper;
 import com.yonyou.yyadmin.system.service.UserRoleService;

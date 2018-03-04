@@ -11,11 +11,11 @@ public interface ShiroService {
     /**
      * 获取用户权限列表
      *
-     * @param userId
+     * @param userCode
      * @return
      * @throws Exception
      */
-    Set<String> getUserPermissions(String userId) throws AuthenticationException;
+    Set<String> getUserPermissions(String userCode) throws AuthenticationException;
 
 
 }

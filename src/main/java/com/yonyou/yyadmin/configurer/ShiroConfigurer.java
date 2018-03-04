@@ -1,15 +1,19 @@
 package com.yonyou.yyadmin.configurer;
 
-import com.yonyou.yyadmin.oauth2.OAuth2Filter;
-import com.yonyou.yyadmin.oauth2.OAuth2Realm;
+import com.yonyou.yyadmin.shiro.StatelessAuthcFilter;
+import com.yonyou.yyadmin.shiro.StatelessRealm;
+import org.apache.shiro.mgt.*;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.subject.SubjectContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
+import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,24 +24,41 @@ import java.util.Map;
 
 /**
  * Shiro配置
+ *
+ * @author shidalin
  */
 @Configuration
 public class ShiroConfigurer {
 
+
+    @Bean("subjectFactory")
+    public SubjectFactory subjectFactory() {
+        return new DefaultSubjectFactory() {
+            @Override
+            public Subject createSubject(SubjectContext context) {
+                //不创建 session,如果之后调用Subject.getSession()将会抛出DisabledSessionException异常
+                context.setSessionCreationEnabled(false);
+                return super.createSubject(context);
+            }
+        };
+    }
+
+    //会话管理器
     @Bean("sessionManager")
     public SessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
-        sessionManager.setSessionValidationSchedulerEnabled(true);
-        sessionManager.setSessionIdUrlRewritingEnabled(false);
-        //sessionManager.setSessionIdCookieEnabled(false);
+        sessionManager.setSessionValidationSchedulerEnabled(false);
         return sessionManager;
     }
 
+    //安全管理器
     @Bean("securityManager")
-    public SecurityManager securityManager(OAuth2Realm oAuth2Realm, SessionManager sessionManager) {
+    public SecurityManager securityManager(StatelessRealm statelessRealm, SessionManager sessionManager, SubjectFactory subjectFactory) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(oAuth2Realm);
+        ((DefaultSessionStorageEvaluator) ((DefaultSubjectDAO) securityManager.getSubjectDAO()).getSessionStorageEvaluator()).setSessionStorageEnabled(false);
+        securityManager.setRealm(statelessRealm);
         securityManager.setSessionManager(sessionManager);
+        securityManager.setSubjectFactory(subjectFactory);
         return securityManager;
     }
 
@@ -48,7 +69,7 @@ public class ShiroConfigurer {
 
         //oauth过滤
         Map<String, Filter> filters = new HashMap<>();
-        filters.put("oauth2", new OAuth2Filter());
+        filters.put("shiro", new StatelessAuthcFilter());
         shiroFilter.setFilters(filters);
 
         Map<String, String> filterMap = new LinkedHashMap<>();
@@ -63,6 +84,7 @@ public class ShiroConfigurer {
         filterMap.put("/swagger-resources/configuration/ui", "anon");
         //登录路径不做权限控制
         filterMap.put("/login", "anon");
+        filterMap.put("/logout", "anon");
         filterMap.put("/**/*.css", "anon");
         filterMap.put("/**/*.js", "anon");
         filterMap.put("/**/*.html", "anon");
@@ -70,7 +92,7 @@ public class ShiroConfigurer {
         filterMap.put("/favicon.ico", "anon");
         filterMap.put("/captcha.jpg", "anon");
         filterMap.put("/", "anon");
-        filterMap.put("/**", "oauth2");
+        filterMap.put("/**", "shiro");
         shiroFilter.setFilterChainDefinitionMap(filterMap);
 
         return shiroFilter;
@@ -93,6 +115,15 @@ public class ShiroConfigurer {
         AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
         advisor.setSecurityManager(securityManager);
         return advisor;
+    }
+
+    //相当于调用SecurityUtils.setSecurityManager(securityManager)
+    @Bean
+    public MethodInvokingFactoryBean methodInvokingFactoryBean(SecurityManager securityManager) {
+        MethodInvokingFactoryBean methodInvokingFactoryBean = new MethodInvokingFactoryBean();
+        methodInvokingFactoryBean.setStaticMethod("org.apache.shiro.SecurityUtils.setSecurityManager");
+        methodInvokingFactoryBean.setArguments(securityManager);
+        return methodInvokingFactoryBean;
     }
 
 }

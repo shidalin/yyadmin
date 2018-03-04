@@ -1,10 +1,10 @@
 package com.yonyou.yyadmin.system.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.yonyou.yyadmin.common.utils.Constant;
 import com.yonyou.yyadmin.system.entity.User;
 import com.yonyou.yyadmin.system.service.ShiroService;
 import com.yonyou.yyadmin.system.service.UserService;
-import com.yonyou.yyadmin.system.service.UserTokenService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,18 +19,16 @@ public class ShiroServiceImpl implements ShiroService {
 
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserTokenService userTokenService;
 
     @Override
-    public Set<String> getUserPermissions(String userId) throws AuthenticationException {
+    public Set<String> getUserPermissions(String userCode) throws AuthenticationException {
         List<String> permsList;
-        User user = userService.selectById(userId);
+        User user = userService.selectOne(new EntityWrapper<User>().eq("user_code", userCode));
         //系统管理员，拥有最高权限
         if (Constant.SUPER_ADMIN.endsWith(user.getUserType())) {
             permsList = userService.queryAllPerms();
         } else {
-            permsList = userService.queryPermsByUserId(userId);
+            permsList = userService.queryPermsByUserId(user.getId());
         }
         //用户权限列表-去重
         Set<String> permsSet = new HashSet<>();

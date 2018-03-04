@@ -3,7 +3,7 @@ package ${package.ServiceImpl};
 import ${package.Entity}.${entity};
 import ${package.Mapper}.${table.mapperName};
 import org.springframework.stereotype.Service;
-import com.yonyou.prm.core.AbstractServiceImpl;
+import com.yonyou.yyadmin.base.AbstractServiceImpl;
 import ${package.Service}.${table.serviceName};
 
 /**

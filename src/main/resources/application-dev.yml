@@ -1,23 +1,25 @@
+###################  spring配置  ###################
 spring:
   #数据库配置信息
   datasource:
-    url: jdbc:mysql://localhost:3306/yyadmin?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/prm?useUnicode=true&characterEncoding=utf-8
     username: root
     password: root
 
+ #开发者工具配置
   devtools:
     restart:
       #配置需要热部署的文件夹
       additional-paths: src/main/java
       additional-exclude: static/**,public/**
 
-
+ #日志配置
   logging:
     config: classpath:logback.xml
     level.*: debug
     path: D://DEV/logs
 
-  #缓存配置信息
+ #缓存配置
   redis:
   # Redis数据库索引（默认为0）
     database: 0
@@ -38,6 +40,8 @@ spring:
       min-idle: 0
       # 连接超时时间（毫秒）
     timeout: 0
+
+###################  项目启动端口配置  ###################
 server:
   port: 8089
 

@@ -3,11 +3,11 @@ package com.yonyou.yyadmin.system.web;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.yonyou.yyadmin.common.annotation.SystemLogAnnotation;
-import com.yonyou.yyadmin.core.AbstractController;
-import com.yonyou.yyadmin.core.Result;
-import com.yonyou.yyadmin.core.ResultGenerator;
+import com.yonyou.yyadmin.base.AbstractController;
+import com.yonyou.yyadmin.base.Result;
+import com.yonyou.yyadmin.base.ResultGenerator;
 import com.yonyou.yyadmin.system.entity.Menu;
-import com.yonyou.yyadmin.system.entity.MenuDTO;
+import com.yonyou.yyadmin.system.dto.MenuDTO;
 import com.yonyou.yyadmin.system.service.MenuService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,7 +107,7 @@ public class MenuController extends AbstractController {
      */
     @RequestMapping("/menu/user")
     public Result user() {
-        List<MenuDTO> menuDTOList = service.getMenuListByUserId(getUserId());
+        List<MenuDTO> menuDTOList = service.getMenuListByUserCode(getUserCode());
         HashMap<String, Object> map = new HashMap<>();
         map.put("menuDTOList", menuDTOList);
         return ResultGenerator.genSuccessResult(map);

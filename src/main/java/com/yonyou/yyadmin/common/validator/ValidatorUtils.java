@@ -1,6 +1,6 @@
 package com.yonyou.yyadmin.common.validator;
 
-import com.yonyou.yyadmin.core.ServiceException;
+import com.yonyou.yyadmin.base.ServiceException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -25,7 +25,7 @@ public class ValidatorUtils {
      *
      * @param object 待校验对象
      * @param groups 待校验的组
-     * @throws com.yonyou.yyadmin.core.ServiceException 校验不通过，则报RRException异常
+     * @throws com.yonyou.yyadmin.base.ServiceException 校验不通过，则报RRException异常
      */
     public static void validateEntity(Object object, Class<?>... groups)
             throws ServiceException {

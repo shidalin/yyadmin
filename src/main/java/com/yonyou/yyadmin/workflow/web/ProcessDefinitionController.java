@@ -3,8 +3,8 @@ package com.yonyou.yyadmin.workflow.web;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yonyou.yyadmin.common.annotation.SystemLogAnnotation;
-import com.yonyou.yyadmin.core.Result;
-import com.yonyou.yyadmin.core.ResultGenerator;
+import com.yonyou.yyadmin.base.Result;
+import com.yonyou.yyadmin.base.ResultGenerator;
 import com.yonyou.yyadmin.workflow.entity.ProcessDefinitionDTO;
 import com.yonyou.yyadmin.workflow.service.WorkFlowIdentifyService;
 import com.yonyou.yyadmin.workflow.service.WorkflowDeployService;
@@ -124,7 +124,7 @@ public class ProcessDefinitionController {
         } catch (Exception e) {
             logger.debug(e.getMessage());
         }
-        String exportDir = "/tmp/prm/process";
+        String exportDir = "/tmp/yyadmin/process";
         try {
             //部署流程
             workflowProcessDefinitionService.redeployAllBpmn(exportDir);

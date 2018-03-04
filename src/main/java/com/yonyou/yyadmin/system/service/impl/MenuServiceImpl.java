@@ -1,8 +1,8 @@
 package com.yonyou.yyadmin.system.service.impl;
 
-import com.yonyou.yyadmin.core.AbstractServiceImpl;
+import com.yonyou.yyadmin.base.AbstractServiceImpl;
 import com.yonyou.yyadmin.system.entity.Menu;
-import com.yonyou.yyadmin.system.entity.MenuDTO;
+import com.yonyou.yyadmin.system.dto.MenuDTO;
 import com.yonyou.yyadmin.system.mapper.MenuMapper;
 import com.yonyou.yyadmin.system.service.MenuService;
 import org.apache.shiro.authc.AuthenticationException;
@@ -28,8 +28,8 @@ public class MenuServiceImpl extends AbstractServiceImpl<MenuMapper, Menu> imple
     private MenuMapper menuMapper;
 
     @Override
-    public List<MenuDTO> getMenuListByUserId(String userId) throws AuthenticationException {
-        List<Menu> menuList = menuMapper.getMenuListByUserId(userId);
+    public List<MenuDTO> getMenuListByUserCode(String userCode) throws AuthenticationException {
+        List<Menu> menuList = menuMapper.getMenuListByUserCode(userCode);
         if (menuList == null || menuList.size() == 0) {
             return null;
         }

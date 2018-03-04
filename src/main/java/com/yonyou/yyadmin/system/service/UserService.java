@@ -1,6 +1,6 @@
 package com.yonyou.yyadmin.system.service;
 
-import com.yonyou.yyadmin.core.AbstractService;
+import com.yonyou.yyadmin.base.AbstractService;
 import com.yonyou.yyadmin.system.entity.User;
 import org.apache.shiro.authc.AuthenticationException;
 

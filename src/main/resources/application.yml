@@ -1,6 +1,7 @@
+###################  spring配置  ###################
 spring:
   application:
-    name: prm
+    name: yyadmin
   profiles:
     active: dev
   datasource:
@@ -16,15 +17,16 @@ management:
     enabled: false #关掉安全认证
   context-path: /management #actuator的访问路径　
 
+###################  数据库连接池配置  ###################
 druid:
   pool:
     initialSize: 10
     maxActive: 100
     minIdle: 10
 
-#mybatis-plus
+###################  mybatis-plus配置  ###################
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*/*Mapper.xml
+  mapper-locations: classpath*:com/yonyou/yyadmin/**/mapper/xml/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.yonyou.yyadmin.system.entity;
   global-config:

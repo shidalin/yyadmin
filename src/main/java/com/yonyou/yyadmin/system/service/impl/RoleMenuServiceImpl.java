@@ -1,6 +1,6 @@
 package com.yonyou.yyadmin.system.service.impl;
 
-import com.yonyou.yyadmin.core.AbstractServiceImpl;
+import com.yonyou.yyadmin.base.AbstractServiceImpl;
 import com.yonyou.yyadmin.system.entity.RoleMenu;
 import com.yonyou.yyadmin.system.mapper.RoleMenuMapper;
 import com.yonyou.yyadmin.system.service.RoleMenuService;
