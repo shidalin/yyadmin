@@ -20,6 +20,8 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -64,8 +66,11 @@ public class StatelessRealm extends AuthorizingRealm {
                 //禁用的账号异常
                 throw new DisabledAccountException();
             }
-            //生成对应token信息,
-            String jwt = CryptoUtil.issueJwt(user.getUserCode(), Constant.EXPIRES, null);
+            //生成对应token信息
+            //用户权限列表,注意：权限标识不能有空值
+            Set<String> permsSet = shiroService.getUserPermissions(username);
+            //更新jwt信息
+            String jwt = CryptoUtil.issueJwt(username, Constant.EXPIRES, permsSet);
             statelessToken.setJwt(jwt);
         } else {
             //普通请求,验证jwt
@@ -87,24 +92,19 @@ public class StatelessRealm extends AuthorizingRealm {
         StatelessToken statelessToken = (StatelessToken) principals.getPrimaryPrincipal();
         if (statelessToken.isLogin()) {
             //登录请求
-            String userCode = statelessToken.getPrincipal() == null ? "" : statelessToken.getPrincipal().toString();
-            //用户权限列表,注意：权限标识不能有空值
-            Set<String> permsSet = shiroService.getUserPermissions(userCode);
-            //更新jwt信息
-            String jwt = CryptoUtil.issueJwt(userCode, Constant.EXPIRES, permsSet);
-            statelessToken.setJwt(jwt);
-            //更新授权信息
-            simpleAuthorizationInfo.setStringPermissions(permsSet);
+            //登录请求不需要授权，移至登录认证部分
         } else {
             //普通请求
             String jwt = statelessToken.getJwt();
             try {
                 //解析jwt
                 Claims claims = CryptoUtil.parseJWT(statelessToken.getJwt());
-                //获取权限信息
-                Set<String> permsSet = (Set<String>) claims.get(CryptoUtil.PERMISSION_KEY);
+                //获取权限信息,简单数据格式转换
+                ArrayList<String> permsSet = (ArrayList<String>) claims.get(CryptoUtil.PERMISSION_KEY);
+                HashSet<String> params = new HashSet<>();
+                params.addAll(permsSet);
                 //更新授权信息
-                simpleAuthorizationInfo.setStringPermissions(permsSet);
+                simpleAuthorizationInfo.setStringPermissions(params);
             } catch (ExpiredJwtException e) {
                 // jwt过期
                 throw new ServiceException("TOKEN过期，请重新登录");

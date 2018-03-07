@@ -23,5 +23,5 @@ public interface UserMapper extends BaseMapper<User> {
 
     List<String> queryPermsByUserId(String userId) throws AuthenticationException;
 
-    User queryUserByAccessToken(String accessToken) throws AuthenticationException;
+    List<String> queryMenuByUserCode(String userCode) throws AuthenticationException;
 }

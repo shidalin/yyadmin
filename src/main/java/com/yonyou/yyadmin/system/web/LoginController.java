@@ -6,14 +6,17 @@ import com.yonyou.yyadmin.base.Result;
 import com.yonyou.yyadmin.base.ResultGenerator;
 import com.yonyou.yyadmin.shiro.CryptoUtil;
 import com.yonyou.yyadmin.shiro.StatelessToken;
+import com.yonyou.yyadmin.system.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +26,10 @@ import java.util.Map;
  */
 @RestController
 public class LoginController extends AbstractController {
+
+    @Autowired
+    private UserService userService;
+
     /**
      * 用户登陆
      * 权限控制机制：
@@ -50,8 +57,9 @@ public class LoginController extends AbstractController {
             Result result = ResultGenerator.genSuccessResult();
             HashMap<String, Object> dataMap = new HashMap<>();
             dataMap.put("jwt", jwt);
-            //认证部分处理是否过期
-//            dataMap.put("expires", Constant.EXPIRES);
+            //查询用户关联的菜单
+            List<String> menus = userService.queryMenuByUserCode(username);
+            dataMap.put("menus", menus);
             result.setData(dataMap);
             result.setMessage("登录成功");
             return result;

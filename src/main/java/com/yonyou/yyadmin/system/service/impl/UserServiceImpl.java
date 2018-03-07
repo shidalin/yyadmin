@@ -42,7 +42,7 @@ public class UserServiceImpl extends AbstractServiceImpl<UserMapper, User> imple
     }
 
     @Override
-    public User queryUserByAccessToken(String accessToken) throws AuthenticationException {
-        return userMapper.queryUserByAccessToken(accessToken);
+    public List<String> queryMenuByUserCode(String userCode) throws AuthenticationException {
+        return userMapper.queryMenuByUserCode(userCode);
     }
 }

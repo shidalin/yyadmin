@@ -2,7 +2,7 @@
 spring:
   #数据库配置信息
   datasource:
-    url: jdbc:mysql://localhost:3306/prm?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/yyadmin?useUnicode=true&characterEncoding=utf-8
     username: root
     password: root
 
@@ -12,6 +12,9 @@ spring:
       #配置需要热部署的文件夹
       additional-paths: src/main/java
       additional-exclude: static/**,public/**
+  #springBoot只支持redis,无状态会话，不需要session
+  session:
+    store-type: none
 
  #日志配置
   logging:

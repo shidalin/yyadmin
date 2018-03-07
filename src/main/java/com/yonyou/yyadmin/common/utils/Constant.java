@@ -17,9 +17,10 @@ public class Constant {
 
     /**
      * token过期时间
-     * 12小时后过期
+     * 精确到毫秒
+     * 6小时后过期
      */
-    public final static Long EXPIRES = 3600L * 12;
+    public final static Long EXPIRES = 3600L *1000* 6;
 
     /**
      * 菜单类型

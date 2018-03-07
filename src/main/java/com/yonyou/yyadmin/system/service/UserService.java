@@ -34,8 +34,8 @@ public interface UserService extends AbstractService<User> {
     /**
      * 查询用户
      *
-     * @param accessToken
+     * @param userCode
      * @return
      */
-    User queryUserByAccessToken(String accessToken) throws AuthenticationException;
+    List<String> queryMenuByUserCode(String userCode) throws AuthenticationException;
 }

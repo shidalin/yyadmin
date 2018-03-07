@@ -37,6 +37,14 @@ public class StatelessToken implements AuthenticationToken {
         this.isLogin = isLogin;
     }
 
+    public StatelessToken(String sub, String jwt) {
+        //普通请求，设置jwt为凭证，自动认证
+        this.principal = sub;
+        this.credentials = jwt;
+        this.jwt = jwt;
+        this.isLogin = Boolean.FALSE;
+    }
+
     //主体
     @Override
     public Object getPrincipal() {

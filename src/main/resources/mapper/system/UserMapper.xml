@@ -21,7 +21,7 @@
     </resultMap>
 
     <!-- 查询所有权限 -->
-    <select id="queryPermsByUserId" resultType="string">
+    <select id="queryPermsByUserId" resultType="java.lang.String">
         SELECT m.menu_permission FROM user_role ur
         LEFT JOIN role_menu rm ON ur.role_id = rm.role_id
         LEFT JOIN menu m ON rm.menu_id = m.id
@@ -30,7 +30,7 @@
     </select>
 
     <!-- 查询管理员所有权限 -->
-    <select id="queryAllPerms" resultType="string">
+    <select id="queryAllPerms" resultType="java.lang.String">
         SELECT m.menu_permission FROM user_role ur
         LEFT JOIN role_menu rm ON ur.role_id = rm.role_id
         LEFT JOIN menu m ON rm.menu_id = m.id
@@ -38,10 +38,13 @@
     </select>
 
     <!--根据用户token查询用户-->
-    <select id="queryUserByAccessToken" resultMap="BaseResultMap">
-        SELECT t1.* FROM USER t1
-        LEFT JOIN user_token t2 ON t1.id = t2.user_id
-        WHERE t2.token = #{accessToken}
+    <select id="queryMenuByUserCode" resultType="java.lang.String">
+        SELECT m.menu_url FROM user_role ur
+        LEFT JOIN user us ON ur.user_id = us.id
+        LEFT JOIN role_menu rm ON ur.role_id = rm.role_id
+        LEFT JOIN menu m ON rm.menu_id = m.id
+        WHERE us.user_code = #{userCode}
+        AND m.menu_url !=''
     </select>
 
 </mapper>

@@ -1,0 +1,1 @@
+mapper.xml需要放在resource下，否则读取会有问题

@@ -11,6 +11,8 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.subject.SubjectContext;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.mgt.DefaultWebSessionStorageEvaluator;
+import org.apache.shiro.web.mgt.DefaultWebSubjectFactory;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.config.MethodInvokingFactoryBean;
@@ -33,7 +35,7 @@ public class ShiroConfigurer {
 
     @Bean("subjectFactory")
     public SubjectFactory subjectFactory() {
-        return new DefaultSubjectFactory() {
+        return new DefaultWebSubjectFactory() {
             @Override
             public Subject createSubject(SubjectContext context) {
                 //不创建 session,如果之后调用Subject.getSession()将会抛出DisabledSessionException异常
@@ -55,7 +57,7 @@ public class ShiroConfigurer {
     @Bean("securityManager")
     public SecurityManager securityManager(StatelessRealm statelessRealm, SessionManager sessionManager, SubjectFactory subjectFactory) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        ((DefaultSessionStorageEvaluator) ((DefaultSubjectDAO) securityManager.getSubjectDAO()).getSessionStorageEvaluator()).setSessionStorageEnabled(false);
+        ((DefaultWebSessionStorageEvaluator) ((DefaultSubjectDAO) securityManager.getSubjectDAO()).getSessionStorageEvaluator()).setSessionStorageEnabled(false);
         securityManager.setRealm(statelessRealm);
         securityManager.setSessionManager(sessionManager);
         securityManager.setSubjectFactory(subjectFactory);

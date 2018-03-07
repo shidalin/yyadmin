@@ -26,7 +26,7 @@ druid:
 
 ###################  mybatis-plus配置  ###################
 mybatis-plus:
-  mapper-locations: classpath*:com/yonyou/yyadmin/**/mapper/xml/*Mapper.xml
+  mapper-locations: classpath:/mapper/*/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
   typeAliasesPackage: com.yonyou.yyadmin.system.entity;
   global-config:

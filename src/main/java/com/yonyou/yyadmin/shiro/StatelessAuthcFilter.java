@@ -36,7 +36,7 @@ public class StatelessAuthcFilter extends AuthenticatingFilter {
         Map<String, Object> jwtPayloadMap = CryptoUtil.readValue(jwtPayload);
         //获取userCode
         String sub = jwtPayloadMap.get("sub") == null ? "" : jwtPayloadMap.get("sub").toString();
-        return new StatelessToken(sub, null, jwt);
+        return new StatelessToken(sub, jwt);
     }
 
     @Override
