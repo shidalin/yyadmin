@@ -49,11 +49,12 @@ public class StatelessRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         StatelessToken statelessToken = (StatelessToken) authenticationToken;
+        String username = statelessToken.getPrincipal() == null ? "" : statelessToken.getPrincipal().toString();
+        User user = userService.selectOne(new EntityWrapper<User>().eq("user_code", username));
         if (statelessToken.isLogin()) {
             //登录请求
-            String username = statelessToken.getPrincipal() == null ? "" : statelessToken.getPrincipal().toString();
             String password = statelessToken.getCredentials() == null ? "" : statelessToken.getCredentials().toString();
-            User user = userService.selectOne(new EntityWrapper<User>().eq("user_code", username));
+
             if (user == null) {
                 // 非法账号异常
                 throw new UnknownAccountException();
@@ -76,6 +77,8 @@ public class StatelessRealm extends AuthorizingRealm {
             //普通请求,验证jwt
             //转移至授权出校验jwt，认证授权一次校验
         }
+        //设置主键，便于存储修改人信息
+        statelessToken.setUserId(user.getId());
         //传递jwt至授权方法,固定第一个参数
         SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(statelessToken, statelessToken.getCredentials(), getName());
         return info;

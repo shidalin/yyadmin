@@ -14,6 +14,7 @@ public class StatelessToken implements AuthenticationToken {
     private String credentials;// 凭证，用户密码
     private String jwt; // json web token
     private boolean isLogin; // 登录标志
+    private String userId;
 
 
     public StatelessToken(String jwt) {
@@ -71,6 +72,14 @@ public class StatelessToken implements AuthenticationToken {
 
     public void setCredentials(String credentials) {
         this.credentials = credentials;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     // 是否是登录

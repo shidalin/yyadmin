@@ -1,7 +1,9 @@
 package com.yonyou.yyadmin.base;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.yonyou.yyadmin.shiro.StatelessToken;
 import com.yonyou.yyadmin.system.entity.User;
 import org.apache.shiro.SecurityUtils;
 
@@ -12,15 +14,13 @@ import java.util.Date;
  **/
 public class AbstractServiceImpl<M extends BaseMapper<T>, T extends AbstractModel> extends ServiceImpl<M, T> implements AbstractService<T> {
 
-    protected User getUser() {
-        return (User) SecurityUtils.getSubject().getPrincipal();
-    }
 
     protected String getUserId() {
-        if(getUser()==null){
+        StatelessToken stateLessToken = (StatelessToken) SecurityUtils.getSubject().getPrincipal();
+        if (stateLessToken == null) {
             return "";
         }
-        return getUser().getId();
+        return stateLessToken.getUserId();
     }
 
     @Override

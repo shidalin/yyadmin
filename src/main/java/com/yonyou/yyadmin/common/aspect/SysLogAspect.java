@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.yonyou.yyadmin.common.annotation.SystemLogAnnotation;
 import com.yonyou.yyadmin.common.utils.HttpContextUtils;
 import com.yonyou.yyadmin.common.utils.IPUtils;
+import com.yonyou.yyadmin.shiro.StatelessToken;
 import com.yonyou.yyadmin.system.entity.SystemLog;
 import com.yonyou.yyadmin.system.entity.User;
 import com.yonyou.yyadmin.system.service.SystemLogService;
@@ -70,13 +71,15 @@ public class SysLogAspect {
         HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
         //设置IP地址
         sysLog.setIp(IPUtils.getIpAddr(request));
-
+        StatelessToken stateLessToken = (StatelessToken) SecurityUtils.getSubject().getPrincipal();
         //用户名
-        if ("用户登录".equals(systemLogAnnotation.value())) {
+        if (stateLessToken == null || stateLessToken.isLogin()) {
+            //登陆请求通过请求参数获取用户编码
             String username = request.getParameter("username");
             sysLog.setUserName(username);
         } else {
-            String username = ((User) SecurityUtils.getSubject().getPrincipal()).getUserName();
+            //正常请求通过token获取用户密码
+            String username = stateLessToken.getPrincipal() == null ? "" : stateLessToken.getPrincipal().toString();
             sysLog.setUserName(username);
         }
         sysLog.setGmtCreate(new Date());

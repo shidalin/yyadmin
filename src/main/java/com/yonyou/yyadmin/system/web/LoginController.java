@@ -76,10 +76,10 @@ public class LoginController extends AbstractController {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         //从header中获取token
-        String jwt = httpRequest.getHeader("jwt");
+        String jwt = httpRequest.getHeader("Authorization");
         //如果header中不存在token，则从参数中获取token
         if (StringUtils.isBlank(jwt)) {
-            jwt = httpRequest.getParameter("jwt");
+            jwt = httpRequest.getParameter("Authorization");
         }
         //失效jwt
         jwt = CryptoUtil.disabledJWT(jwt);

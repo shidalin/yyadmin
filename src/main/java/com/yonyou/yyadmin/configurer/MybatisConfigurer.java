@@ -1,6 +1,7 @@
 package com.yonyou.yyadmin.configurer;
 
 import com.baomidou.mybatisplus.entity.GlobalConfiguration;
+import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.mapper.LogicSqlInjector;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.plugins.PerformanceInterceptor;
@@ -52,7 +53,7 @@ public class MybatisConfigurer {
         GlobalConfiguration conf = new GlobalConfiguration(new LogicSqlInjector());
         conf.setLogicDeleteValue("1");
         conf.setLogicNotDeleteValue("0");
-        conf.setIdType(3);
+        conf.setIdType(IdType.UUID.getKey());
         return conf;
     }
 

@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.DbColumnType;
 import com.baomidou.mybatisplus.generator.config.rules.DbType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.toolkit.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,9 +20,9 @@ import java.util.Map;
  **/
 public class MpGenerator {
 
-    //            private static final String[] Tables = {"bug", "document", "project", "project_user", "requirement", "requirement_user"};
-    private static final String[] Tables = {"user", "organization", "role", "role_menu", "system_log", "user_role", "user_token", "menu"};
-    //    private static final String[] Tables = {"organization", };
+    //    private static final String[] Tables = {"bug", "document", "project", "project_user", "requirement", "requirement_user"};
+//    private static final String[] Tables = {"user", "organization", "role", "role_menu", "system_log", "user_role", "user_token", "menu"};
+    private static final String[] Tables = { "organization", "role", "role_menu",  "user_role",  "menu"};
     private static final String MODILE_NAME = "system";
 
     /**
@@ -66,7 +67,7 @@ public class MpGenerator {
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/prm?characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://127.0.0.1:3306/yyadmin?characterEncoding=utf8");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -98,7 +99,7 @@ public class MpGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.yonyou.yyadmin");
+        pc.setParent("com.yonyou.yyadmin.modules");
         pc.setModuleName(MODILE_NAME);
         mpg.setPackageInfo(pc);
 
@@ -114,15 +115,6 @@ public class MpGenerator {
 
         // 自定义 xxList.jsp 生成
         List<FileOutConfig> focList = new ArrayList<FileOutConfig>();
-//        focList.add(new FileOutConfig("/template/list.jsp.vm") {
-//            @Override
-//            public String outputFile(TableInfo tableInfo) {
-//                // 自定义输入文件名称
-//                return "D://my_" + tableInfo.getEntityName() + ".jsp";
-//            }
-//        });
-//        cfg.setFileOutConfigList(focList);
-//        mpg.setCfg(cfg);
 
         // 调整 xml 生成目录演示
         focList.add(new FileOutConfig("/templates/mapper.xml.vm") {
@@ -177,10 +169,20 @@ public class MpGenerator {
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
 
+        focList.add(new FileOutConfig("/templates/entity.vue.vm") {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                return gc.getOutputDir() + "/vue/" + StringUtils.firstToLowerCase(tableInfo.getEntityName()) + ".vue";
+            }
+        });
+        cfg.setFileOutConfigList(focList);
+        mpg.setCfg(cfg);
+
         // 关闭默认 xml 生成，调整生成 至 根目录
         TemplateConfig tc = new TemplateConfig();
         tc.setEntity(null);
         tc.setService(null);
+        tc.setServiceImpl(null);
         tc.setController(null);
         tc.setMapper(null);
         tc.setXml(null);

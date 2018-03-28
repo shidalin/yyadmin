@@ -52,6 +52,7 @@ public abstract class AbstractModel<T extends Model> extends Model<T> {
     private String gmtModifier;
 
     /**
+     * TableLogic：表示开启逻辑删除
      * 删除标志
      * 1表示删除
      * 0表示未删除

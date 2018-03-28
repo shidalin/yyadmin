@@ -37,7 +37,7 @@ public class UserServiceImpl extends AbstractServiceImpl<UserMapper, User> imple
     @Override
     public boolean insert(User user) {
         //用户密码加密
-        user.setUserPswd(new Sha256Hash(user.getUserPswd(), user.getSalt()).toHex());
+//        user.setUserPswd(new Sha256Hash(user.getUserPswd(), "");
         return super.insert(user);
     }
 
