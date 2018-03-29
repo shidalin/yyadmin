@@ -16,11 +16,6 @@ spring:
   session:
     store-type: none
 
- #日志配置
-  logging:
-    config: classpath:logback.xml
-    level.*: debug
-    path: D://DEV/logs
 
  #缓存配置
   redis:

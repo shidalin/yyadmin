@@ -46,4 +46,11 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
 
+###################  日志配置  ###################
+logging:
+  level:
+       com.yonyou: debug
+  file: ./logs/yyadmin.log
+
+
 
