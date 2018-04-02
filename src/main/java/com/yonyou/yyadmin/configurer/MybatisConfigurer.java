@@ -18,7 +18,7 @@ import javax.sql.DataSource;
  * Mybatis & Mapper & PageHelper 配置
  */
 @Configuration
-@MapperScan(basePackages = {"com.yonyou.yyadmin.*.mapper"})
+@MapperScan(basePackages = {"com.yonyou.yyadmin.system.mapper","com.yonyou.yyadmin.modules.*.mapper"})
 public class MybatisConfigurer {
 
     /**

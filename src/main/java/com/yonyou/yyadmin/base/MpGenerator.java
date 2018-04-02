@@ -21,8 +21,10 @@ import java.util.Map;
 public class MpGenerator {
 
     //    private static final String[] Tables = {"bug", "document", "project", "project_user", "requirement", "requirement_user"};
-//    private static final String[] Tables = {"user", "organization", "role", "role_menu", "system_log", "user_role", "user_token", "menu"};
-    private static final String[] Tables = { "organization", "role", "role_menu",  "user_role",  "menu"};
+    // system
+    private static final String[] Tables = {"user", "role", "menu", "organization", "user_role", "role_menu", "system_log",};
+    // order
+//    private static final String[] Tables = { "po_order","po_order_item","material","dealer"};
     private static final String MODILE_NAME = "system";
 
     /**

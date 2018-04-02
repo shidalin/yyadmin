@@ -1,3 +1,4 @@
+package com.yonyou.yyadmin.modules.order.web;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -8,38 +9,30 @@ import com.yonyou.yyadmin.base.ResultGenerator;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ${package.Entity}.${entity};
-import ${package.Service}.${table.serviceName};
+import com.yonyou.yyadmin.modules.order.entity.Material;
+import com.yonyou.yyadmin.modules.order.service.MaterialService;
 
 import java.util.Arrays;
 
 /**
  * <p>
- * $!{table.comment} 前端控制器
+ * 商品 前端控制器
  * </p>
  *
- * @author ${author}
- * @since ${date}
+ * @author shidalin
+ * @since 2018-04-02
  */
-#if(${restControllerStyle})
 @RestController
-#else
-@RestController
-#end
-@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
-#if(${superControllerClass})
-public class ${table.controllerName} extends ${superControllerClass} {
-#else
-public class ${table.controllerName} {
-#end
+@RequestMapping("/order/material")
+public class MaterialController extends AbstractController {
 
     @Autowired
-    private ${table.serviceName} service;
+    private MaterialService service;
 
-    @SystemLogAnnotation("新增$!{table.comment}信息")
-    @RequiresPermissions("${entity}:add")
+    @SystemLogAnnotation("新增商品信息")
+    @RequiresPermissions("Material:add")
     @PostMapping("/add")
-    public Result create(@RequestBody ${entity} t){
+    public Result create(@RequestBody Material t){
             if(service.insert(t)){
             return ResultGenerator.genSuccessResult();
             }else{
@@ -47,8 +40,8 @@ public class ${table.controllerName} {
             }
             }
 
-    @SystemLogAnnotation("批量删除$!{table.comment}信息")
-    @RequiresPermissions("${entity}:removeAll")
+    @SystemLogAnnotation("批量删除商品信息")
+    @RequiresPermissions("Material:removeAll")
     @PostMapping("/remove")
     public Result delete(@RequestBody String[]ids){
             if(service.deleteBatchIds(Arrays.asList(ids))){
@@ -58,8 +51,8 @@ public class ${table.controllerName} {
             }
     }
 
-    @SystemLogAnnotation("删除$!{table.comment}信息")
-    @RequiresPermissions("${entity}:remove")
+    @SystemLogAnnotation("删除商品信息")
+    @RequiresPermissions("Material:remove")
     @PostMapping("/remove/{id}")
     public Result delete(@PathVariable String id){
             if(service.deleteById(id)){
@@ -69,10 +62,10 @@ public class ${table.controllerName} {
             }
      }
 
-    @SystemLogAnnotation("修改$!{table.comment}信息")
-    @RequiresPermissions("${entity}:update")
+    @SystemLogAnnotation("修改商品信息")
+    @RequiresPermissions("Material:update")
     @PostMapping("/update")
-    public Result update(@RequestBody ${entity} t){
+    public Result update(@RequestBody Material t){
             if(service.updateById(t)){
             return ResultGenerator.genSuccessResult();
             }else{
@@ -81,16 +74,16 @@ public class ${table.controllerName} {
     }
 
 
-    @RequiresPermissions("${entity}:detail")
+    @RequiresPermissions("Material:detail")
     @PostMapping("/detail/{id}")
     public Result detail(@PathVariable String id){
             return ResultGenerator.genSuccessResult(service.selectById(id));
             }
 
-    @RequiresPermissions("${entity}:list")
+    @RequiresPermissions("Material:list")
     @PostMapping("/list")
-    public Result list(@RequestBody Page<${entity}> pageEntity){
-            pageEntity=service.selectPage(pageEntity,new EntityWrapper<${entity}>());
+    public Result list(@RequestBody Page<Material> pageEntity){
+            pageEntity=service.selectPage(pageEntity,new EntityWrapper<Material>());
             return ResultGenerator.genSuccessResult(pageEntity);
             }
     }

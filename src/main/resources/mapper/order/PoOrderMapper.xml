@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yonyou.yyadmin.modules.order.mapper.PoOrderMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.yonyou.yyadmin.modules.order.entity.PoOrder">
+	<result column="id" property="id" />
+	<result column="status" property="status" />
+	<result column="gmt_create" property="gmtCreate" />
+	<result column="gmt_creator" property="gmtCreator" />
+	<result column="gmt_modified" property="gmtModified" />
+	<result column="gmt_modifier" property="gmtModifier" />
+	<result column="is_deleted" property="isDeleted" />
+		<result column="order_code" property="orderCode" />
+		<result column="dealer_id" property="dealerId" />
+		<result column="dealer_name" property="dealerName" />
+		<result column="busiman" property="busiman" />
+		<result column="dept" property="dept" />
+		<result column="dbilldate" property="dbilldate" />
+		<result column="recvunit" property="recvunit" />
+		<result column="recvadr" property="recvadr" />
+		<result column="invcunit" property="invcunit" />
+		<result column="transnum" property="transnum" />
+		<result column="dreqdate" property="dreqdate" />
+		<result column="dpredate" property="dpredate" />
+		<result column="currency" property="currency" />
+		<result column="vmemo" property="vmemo" />
+	</resultMap>
+
+</mapper>

@@ -35,10 +35,10 @@
         </div>
         <!--明细信息  -->
         <div>
-            <Modal :mask-closable="false" :closable="false" v-model="modalShow" width="800" title="$!{table.comment}信息"
+            <Modal :mask-closable="false" :closable="false" v-model="modalShow" width="1200" title="$!{table.comment}信息"
                    ok-text="保存"
                    @on-cancel="modalClosedEvent" @on-ok="modalConfirmEvent">
-                <Form label-position="left" :label-width="80" ref="modalForm" :model="modalForm" :rules="modalRule">
+                <Form label-position="left" :label-width="100" ref="modalForm" :model="modalForm" :rules="modalRule">
                 <Row>
                     #set($temp=1)
                     #foreach($column in ${table.fields})
@@ -47,6 +47,9 @@
                                 <Input v-model="modalForm.${column.propertyName}" type="text"
                                        placeholder="请输入${column.comment}"></Input>
                             </Form-item>
+                            </Col>
+                            <Col span="1">
+                            &nbsp;
                             </Col>
                         #if($!temp % 2==0)
                             </Row>

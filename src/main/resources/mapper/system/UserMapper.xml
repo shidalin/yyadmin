@@ -43,8 +43,10 @@
         LEFT JOIN user us ON ur.user_id = us.id
         LEFT JOIN role_menu rm ON ur.role_id = rm.role_id
         LEFT JOIN menu m ON rm.menu_id = m.id
-        WHERE us.user_code = #{userCode}
-        AND m.menu_url !=''
+        WHERE m.menu_url !=''
+        <if test="_parameter != 'admin'">
+            AND us.user_code = #{userCode}
+        </if>
     </select>
 
 </mapper>
