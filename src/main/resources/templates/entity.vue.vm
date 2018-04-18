@@ -349,7 +349,6 @@
                 let self = this;
                 self.current = current;
                 self.list_${table.entityPath}(self.current, self.pageSize);
-                this.list_${table.entityPath}(this.current, this.pageSize);
             },
             //切换每页条数
             changePageSize(pageSize) {

@@ -22,10 +22,10 @@ public class MpGenerator {
 
     //    private static final String[] Tables = {"bug", "document", "project", "project_user", "requirement", "requirement_user"};
     // system
-    private static final String[] Tables = {"user", "role", "menu", "organization", "user_role", "role_menu", "system_log",};
+//    private static final String[] Tables = {"user", "role", "menu", "organization", "user_role", "role_menu", "system_log",};
     // order
-//    private static final String[] Tables = { "po_order","po_order_item","material","dealer"};
-    private static final String MODILE_NAME = "system";
+    private static final String[] Tables = { "po_order","po_order_item","material","dealer"};
+    private static final String MODILE_NAME = "order";
 
     /**
      * <p>

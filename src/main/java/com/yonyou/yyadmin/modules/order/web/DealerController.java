@@ -32,58 +32,58 @@ public class DealerController extends AbstractController {
     @SystemLogAnnotation("新增经销商信息")
     @RequiresPermissions("Dealer:add")
     @PostMapping("/add")
-    public Result create(@RequestBody Dealer t){
-            if(service.insert(t)){
+    public Result create(@RequestBody Dealer t) {
+        if (service.insert(t)) {
             return ResultGenerator.genSuccessResult();
-            }else{
+        } else {
             return ResultGenerator.genFailResult("新增失败");
-            }
-            }
+        }
+    }
 
     @SystemLogAnnotation("批量删除经销商信息")
     @RequiresPermissions("Dealer:removeAll")
     @PostMapping("/remove")
-    public Result delete(@RequestBody String[]ids){
-            if(service.deleteBatchIds(Arrays.asList(ids))){
+    public Result delete(@RequestBody String[] ids) {
+        if (service.deleteBatchIds(Arrays.asList(ids))) {
             return ResultGenerator.genSuccessResult();
-            }else{
+        } else {
             return ResultGenerator.genFailResult("批量删除失败");
-            }
+        }
     }
 
     @SystemLogAnnotation("删除经销商信息")
     @RequiresPermissions("Dealer:remove")
     @PostMapping("/remove/{id}")
-    public Result delete(@PathVariable String id){
-            if(service.deleteById(id)){
+    public Result delete(@PathVariable String id) {
+        if (service.deleteById(id)) {
             return ResultGenerator.genSuccessResult();
-            }else{
+        } else {
             return ResultGenerator.genFailResult("删除失败");
-            }
-     }
+        }
+    }
 
     @SystemLogAnnotation("修改经销商信息")
     @RequiresPermissions("Dealer:update")
     @PostMapping("/update")
-    public Result update(@RequestBody Dealer t){
-            if(service.updateById(t)){
+    public Result update(@RequestBody Dealer t) {
+        if (service.updateById(t)) {
             return ResultGenerator.genSuccessResult();
-            }else{
+        } else {
             return ResultGenerator.genFailResult("更新失败");
-            }
+        }
     }
 
 
     @RequiresPermissions("Dealer:detail")
     @PostMapping("/detail/{id}")
-    public Result detail(@PathVariable String id){
-            return ResultGenerator.genSuccessResult(service.selectById(id));
-            }
+    public Result detail(@PathVariable String id) {
+        return ResultGenerator.genSuccessResult(service.selectById(id));
+    }
 
     @RequiresPermissions("Dealer:list")
     @PostMapping("/list")
-    public Result list(@RequestBody Page<Dealer> pageEntity){
-            pageEntity=service.selectPage(pageEntity,new EntityWrapper<Dealer>());
-            return ResultGenerator.genSuccessResult(pageEntity);
-            }
+    public Result list(@RequestBody Page<Dealer> pageEntity) {
+        pageEntity = service.selectPage(pageEntity, new EntityWrapper<Dealer>());
+        return ResultGenerator.genSuccessResult(pageEntity);
     }
+}
